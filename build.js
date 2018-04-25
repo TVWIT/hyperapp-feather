@@ -66,6 +66,10 @@ const requireModules = names => names.map(({ filename, name }) => {
   return `  ${name}: require('./icons/${filename}.js')`
 }).join(',\n')
 
+const typingsNames = names => names.map(({ name }) => {
+  return `export declare const ${name}: (params?: Params | undefined) => Component<{}, {}, {}>;`
+}).join('\n')
+
 const main = async () => {
   console.log('BUILDING FEATHER ICONS')
 
@@ -88,7 +92,17 @@ ${requireModules(names)}
   const mainFile = join(__dirname, 'main.js')
   await writeFile(mainFile, mainModuleSource)
 
-  // TODO: build typings file
+  const typingsSource = `import { Component } from 'hyperapp'
+export interface Params {
+  size?: number;
+  weight?: number;
+  color?: string;
+}
+${typingsNames(names)}`
+
+  console.log('writing typescript typings file')
+  const typingsFile = join(__dirname, 'main.d.ts')
+  await writeFile(typingsFile, typingsSource)
 
   console.log('if you enjoyed this process, consider running it again for teh luls')
 }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "feather icons for hyperapp",
   "main": "main.js",
+  "types": "main.d.ts",
   "peerDependencies": {
     "hyperapp": "^1.2.5"
   },
