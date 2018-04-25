@@ -1,0 +1,29 @@
+{
+  "name": "hyperapp-feather-icons",
+  "version": "0.1.0",
+  "description": "feather icons for hyperapp",
+  "main": "main.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "feather-icons": "4.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/breja/hyperapp-feather-icons.git"
+  },
+  "keywords": [
+    "hyperapp",
+    "feather",
+    "icons"
+  ],
+  "author": "breja",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/breja/hyperapp-feather-icons/issues"
+  },
+  "homepage": "https://github.com/breja/hyperapp-feather-icons#readme"
+}
