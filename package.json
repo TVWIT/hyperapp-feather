@@ -10,9 +10,9 @@
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-plugin-transform-react-jsx": "6.24.1",
-    "feather": "4.7.0",
+    "feather-icons": "4.7.0",
     "fs-extra": "5.0.0",
-    "jscodeshift": "0.5.0"
+    "svgr": "1.9.1"
   },
   "scripts": {
     "build": "node build.js"
@@ -26,7 +26,7 @@
     "feather",
     "icons"
   ],
-  "author": "deomitrus",
+  "author": "breja",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/breja/hyperapp-feather/issues"

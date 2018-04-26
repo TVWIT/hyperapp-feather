@@ -1,96 +1,79 @@
 'use strict'
 
-const { readFile, writeFile, readdir, ensureDir, stat } = require('fs-extra')
-const { join, basename, extname } = require('path')
+const fs = require('fs-extra')
 const babel = require('babel-core')
-const j = require('jscodeshift')
-const fs = require('fs')
+const { promisify } = require('util')
+const { default: svgr } = require('svgr')
+const { join, basename, extname } = require('path')
 
-const getDirFiles = async path => {
-  const paths = await readdir(path).catch(() => [])
+const srcDir = join(__dirname, 'node_modules', 'feather-icons', 'dist', 'icons')
+const destDir = join(__dirname, 'icons')
+
+const getFiles = async path => {
+  const paths = await fs.readdir(path).catch(() => [])
   const filepaths = paths.map(f => ({ name: f, path: join(path, f) }))
   const filesreq = await Promise.all(filepaths.map(async f => ({
     path: f.path,
     name: f.name,
-    stats: await stat(f.path).catch(() => emptyStat)
+    stats: await fs.stat(f.path).catch(() => emptyStat)
   })))
-  return filesreq
-    .map(({ name, path, stats }) => ({ name, path, dir: stats.isDirectory(), file: stats.isFile() }))
-    .filter(m => m.dir || m.file)
+
+  return filesreq.filter(m => m.stats.isFile())
 }
 
-const srcDir = join(__dirname, './node_modules/feather-icons/dist/icons')
-const destDir = join(__dirname, 'icons')
+const yerAWizardHarry_imAWot = async ({ path, name }) => {
+  console.log('processing:', name)
 
-const yerAWizardHarryAWot = async thing => {
-  const data = await readFile(thing.path, 'utf8')
+  const raw = await fs.readFile(path, 'utf8')
+  const data = await svgr(raw, { icon: true, template: () => m => m }).catch(console.error)
 
-  console.log('processing', thing.name)
+  const { code } = babel.transform(data, { plugins: [
+    [ require('babel-plugin-transform-react-jsx'), {
+      pragma: 'h',
+      useBuiltIns: true,
+    } ]
+  ] })
 
-  const { ast } = babel.transform(data, { plugins: ['transform-react-jsx'] })
-  const args = ast.program.body[0].expression.arguments.slice(2)
-  const mods = j(args).toSource({ quote: 'single', trailingComma: true })
-  const stuff = Array.isArray(mods) ? mods : [ mods ]
-  const children = stuff
-    .map(m => m.replace(/React.createElement/g, 'h'))
-    .join(',\n')
+  const moduleSrc =  `const { h } = require('hyperapp')
 
-  const res = `const { h } = require('hyperapp')
+module.exports = props => ${code}`
 
-module.exports = ({ size = 24, color = 'currentColor', weight = 2 } = {}) => h('svg', {
-  width: size,
-  height: size,
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: color,
-  'stroke-linecap': 'round',
-  'stroke-linejoin': 'round',
-  'stroke-width': weight + '',
-}, [
-${children}
-])`
+  const justName = basename(name, extname(name))
+  const pathName = `${justName}.js`
+  const moduleName = justName[0].toUpperCase() + justName.slice(1).replace(/-(.)/g, (_, $1) => $1.toUpperCase())
 
-  const destPath = join(destDir, thing.name.replace('svg', 'js'))
-  await writeFile(destPath, res)
-  console.log('saved', destPath)
+  await fs.writeFile(join(destDir, pathName), moduleSrc)
+  return { pathName, moduleName }
 }
 
-const getModuleNames = iconPaths => iconPaths
-  .map(p => basename(p.name, extname(p.name)))
-  .map(name => ({
-    filename: name,
-    name: name[0].toUpperCase() + name.slice(1).replace(/-(.)/g, (_, $1) => $1.toUpperCase())
-  }))
-
-const requireModules = names => names.map(({ filename, name }) => {
-  return `  ${name}: require('./icons/${filename}.js')`
+const requireModules = names => names.map(({ pathName, moduleName }) => {
+  return `  ${moduleName}: require('./icons/${pathName}')`
 }).join(',\n')
 
-const typingsNames = names => names.map(({ name }) => {
-  return `export declare const ${name}: (params?: Params | undefined) => Component<{}, {}, {}>;`
+const typingsNames = names => names.map(({ moduleName }) => {
+  return `export declare const ${moduleName}: (params?: object | undefined) => Component<{}, {}, {}>;`
 }).join('\n')
 
 const main = async () => {
+  await fs.ensureDir(destDir)
+
   console.log('BUILDING FEATHER ICONS')
 
-  const iconPaths = (await getDirFiles(srcDir)).filter(m => m.file)
+  const iconPaths = await getFiles(srcDir)
   if (!iconPaths.length) return console.error('something went wrong, no icons found. wat')
 
   console.log(`found ${iconPaths.length} icons...`)
 
-  await ensureDir(destDir)
-  await Promise.all(iconPaths.map(yerAWizardHarryAWot))
+  const names = await Promise.all(iconPaths.map(yerAWizardHarry_imAWot))
 
   console.log('writing main.js module file')
-  const names = getModuleNames(iconPaths)
-
   const mainModuleSource = `'use strict'
 module.exports = {
 ${requireModules(names)}
 }`
 
   const mainFile = join(__dirname, 'main.js')
-  await writeFile(mainFile, mainModuleSource)
+  await fs.writeFile(mainFile, mainModuleSource)
 
   const typingsSource = `import { Component } from 'hyperapp'
 export interface Params {
@@ -102,8 +85,9 @@ ${typingsNames(names)}`
 
   console.log('writing typescript typings file')
   const typingsFile = join(__dirname, 'main.d.ts')
-  await writeFile(typingsFile, typingsSource)
+  await fs.writeFile(typingsFile, typingsSource)
 
+  console.log('DONE!')
   console.log('if you enjoyed this process, consider running it again for teh luls')
 }
 

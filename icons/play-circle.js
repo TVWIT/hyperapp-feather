@@ -1,21 +1,18 @@
 const { h } = require('hyperapp')
 
-module.exports = ({ size = 24, color = 'currentColor', weight = 2 } = {}) => h('svg', {
-  width: size,
-  height: size,
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: color,
-  'stroke-linecap': 'round',
-  'stroke-linejoin': 'round',
-  'stroke-width': weight + '',
-}, [
-h('circle', {
-    cx: '12',
-    cy: '12',
-    r: '10',
-}),
-h('polygon', {
-    points: '10 8 16 12 10 16 10 8',
-})
-])
+module.exports = props => h(
+  "svg",
+  Object.assign({
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-play-circle",
+    width: "1em",
+    height: "1em"
+  }, props),
+  h("circle", { cx: 12, cy: 12, r: 10 }),
+  h("path", { d: "M10 8l6 4-6 4V8z" })
+);

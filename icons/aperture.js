@@ -1,54 +1,18 @@
 const { h } = require('hyperapp')
 
-module.exports = ({ size = 24, color = 'currentColor', weight = 2 } = {}) => h('svg', {
-  width: size,
-  height: size,
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: color,
-  'stroke-linecap': 'round',
-  'stroke-linejoin': 'round',
-  'stroke-width': weight + '',
-}, [
-h('circle', {
-    cx: '12',
-    cy: '12',
-    r: '10',
-}),
-h('line', {
-    x1: '14.31',
-    y1: '8',
-    x2: '20.05',
-    y2: '17.94',
-}),
-h('line', {
-    x1: '9.69',
-    y1: '8',
-    x2: '21.17',
-    y2: '8',
-}),
-h('line', {
-    x1: '7.38',
-    y1: '12',
-    x2: '13.12',
-    y2: '2.06',
-}),
-h('line', {
-    x1: '9.69',
-    y1: '16',
-    x2: '3.95',
-    y2: '6.06',
-}),
-h('line', {
-    x1: '14.31',
-    y1: '16',
-    x2: '2.83',
-    y2: '16',
-}),
-h('line', {
-    x1: '16.62',
-    y1: '12',
-    x2: '10.88',
-    y2: '21.94',
-})
-])
+module.exports = props => h(
+  "svg",
+  Object.assign({
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-aperture",
+    width: "1em",
+    height: "1em"
+  }, props),
+  h("circle", { cx: 12, cy: 12, r: 10 }),
+  h("path", { d: "M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94" })
+);

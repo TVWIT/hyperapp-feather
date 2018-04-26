@@ -1,24 +1,18 @@
 const { h } = require('hyperapp')
 
-module.exports = ({ size = 24, color = 'currentColor', weight = 2 } = {}) => h('svg', {
-  width: size,
-  height: size,
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: color,
-  'stroke-linecap': 'round',
-  'stroke-linejoin': 'round',
-  'stroke-width': weight + '',
-}, [
-h('rect', {
-    x: '2',
-    y: '7',
-    width: '20',
-    height: '15',
-    rx: '2',
-    ry: '2',
-}),
-h('polyline', {
-    points: '17 2 12 7 7 2',
-})
-])
+module.exports = props => h(
+  "svg",
+  Object.assign({
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-tv",
+    width: "1em",
+    height: "1em"
+  }, props),
+  h("rect", { x: 2, y: 7, width: 20, height: 15, rx: 2, ry: 2 }),
+  h("path", { d: "M17 2l-5 5-5-5" })
+);

@@ -1,53 +1,19 @@
 const { h } = require('hyperapp')
 
-module.exports = ({ size = 24, color = 'currentColor', weight = 2 } = {}) => h('svg', {
-  width: size,
-  height: size,
-  viewBox: '0 0 24 24',
-  fill: 'none',
-  stroke: color,
-  'stroke-linecap': 'round',
-  'stroke-linejoin': 'round',
-  'stroke-width': weight + '',
-}, [
-h('circle', {
-    cx: '12',
-    cy: '12',
-    r: '10',
-}),
-h('circle', {
-    cx: '12',
-    cy: '12',
-    r: '4',
-}),
-h('line', {
-    x1: '4.93',
-    y1: '4.93',
-    x2: '9.17',
-    y2: '9.17',
-}),
-h('line', {
-    x1: '14.83',
-    y1: '14.83',
-    x2: '19.07',
-    y2: '19.07',
-}),
-h('line', {
-    x1: '14.83',
-    y1: '9.17',
-    x2: '19.07',
-    y2: '4.93',
-}),
-h('line', {
-    x1: '14.83',
-    y1: '9.17',
-    x2: '18.36',
-    y2: '5.64',
-}),
-h('line', {
-    x1: '4.93',
-    y1: '19.07',
-    x2: '9.17',
-    y2: '14.83',
-})
-])
+module.exports = props => h(
+  "svg",
+  Object.assign({
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "feather feather-life-buoy",
+    width: "1em",
+    height: "1em"
+  }, props),
+  h("circle", { cx: 12, cy: 12, r: 10 }),
+  h("circle", { cx: 12, cy: 12, r: 4 }),
+  h("path", { d: "M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M14.83 9.17l4.24-4.24M14.83 9.17l3.53-3.53M4.93 19.07l4.24-4.24" })
+);
