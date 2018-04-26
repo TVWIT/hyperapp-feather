@@ -1,9 +1,4 @@
 import { Component } from 'hyperapp'
-export interface Params {
-  size?: number;
-  weight?: number;
-  color?: string;
-}
 export declare const Activity: (params?: object | undefined) => Component<{}, {}, {}>;
 export declare const Airplay: (params?: object | undefined) => Component<{}, {}, {}>;
 export declare const AlertCircle: (params?: object | undefined) => Component<{}, {}, {}>;

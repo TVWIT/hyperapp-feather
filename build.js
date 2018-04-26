@@ -76,11 +76,6 @@ ${requireModules(names)}
   await fs.writeFile(mainFile, mainModuleSource)
 
   const typingsSource = `import { Component } from 'hyperapp'
-export interface Params {
-  size?: number;
-  weight?: number;
-  color?: string;
-}
 ${typingsNames(names)}`
 
   console.log('writing typescript typings file')
