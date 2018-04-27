@@ -51,7 +51,7 @@ const requireModules = names => names.map(({ pathName, moduleName }) => {
 }).join(',\n')
 
 const typingsNames = names => names.map(({ moduleName }) => {
-  return `export declare const ${moduleName}: (params?: object | undefined) => Component<{}, {}, {}>;`
+  return `export declare const ${moduleName}: Component<{}, {}, {}>;`
 }).join('\n')
 
 const main = async () => {
