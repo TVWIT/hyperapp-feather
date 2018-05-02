@@ -37,6 +37,9 @@ const yerAWizardHarry_imAWot = async ({ path, name }) => {
   const moduleSrc =  `const { h } = require('hyperapp')
 
 module.exports = props => ${code}`
+    .replace('strokeWidth', `'stroke-width'`)
+    .replace('strokeLinecap', `'stroke-linecap'`)
+    .replace('strokeLinejoin', `'stroke-linejoin'`)
 
   const justName = basename(name, extname(name))
   const pathName = `${justName}.js`
