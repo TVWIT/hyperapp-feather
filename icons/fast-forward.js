@@ -13,5 +13,6 @@ module.exports = props => h(
     width: "1em",
     height: "1em"
   }, props),
-  h("path", { d: "M13 19l9-7-9-7v14zM2 19l9-7-9-7v14z" })
+  h("polygon", { points: "13 19 22 12 13 5 13 19" }),
+  h("polygon", { points: "2 19 11 12 2 5 2 19" })
 );

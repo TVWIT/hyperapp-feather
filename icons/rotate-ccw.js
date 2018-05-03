@@ -13,6 +13,6 @@ module.exports = props => h(
     width: "1em",
     height: "1em"
   }, props),
-  h("path", { d: "M1 4v6h6" }),
+  h("polyline", { points: "1 4 1 10 7 10" }),
   h("path", { d: "M3.51 15a9 9 0 1 0 2.13-9.36L1 10" })
 );

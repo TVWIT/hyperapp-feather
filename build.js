@@ -25,7 +25,7 @@ const yerAWizardHarry_imAWot = async ({ path, name }) => {
   console.log('processing:', name)
 
   const raw = await fs.readFile(path, 'utf8')
-  const data = await svgr(raw, { icon: true, template: () => m => m }).catch(console.error)
+  const data = await svgr(raw, { svgo: false, icon: true, template: () => m => m }).catch(console.error)
 
   const { code } = babel.transform(data, { plugins: [
     [ require('babel-plugin-transform-react-jsx'), {

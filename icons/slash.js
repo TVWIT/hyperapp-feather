@@ -14,5 +14,5 @@ module.exports = props => h(
     height: "1em"
   }, props),
   h("circle", { cx: 12, cy: 12, r: 10 }),
-  h("path", { d: "M4.93 4.93l14.14 14.14" })
+  h("line", { x1: 4.93, y1: 4.93, x2: 19.07, y2: 19.07 })
 );

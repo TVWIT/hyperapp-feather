@@ -22,5 +22,5 @@ module.exports = props => h(
     ry: 2,
     transform: "rotate(180 12 12)"
   }),
-  h("path", { d: "M12 18" })
+  h("line", { x1: 12, y1: 18, x2: 12, y2: 18 })
 );

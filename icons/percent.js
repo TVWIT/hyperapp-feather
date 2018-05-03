@@ -13,7 +13,7 @@ module.exports = props => h(
     width: "1em",
     height: "1em"
   }, props),
-  h("path", { d: "M19 5L5 19" }),
+  h("line", { x1: 19, y1: 5, x2: 5, y2: 19 }),
   h("circle", { cx: 6.5, cy: 6.5, r: 2.5 }),
   h("circle", { cx: 17.5, cy: 17.5, r: 2.5 })
 );

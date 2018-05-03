@@ -14,5 +14,5 @@ module.exports = props => h(
     height: "1em"
   }, props),
   h("rect", { x: 3, y: 3, width: 18, height: 18, rx: 2, ry: 2 }),
-  h("path", { d: "M9 3v18" })
+  h("line", { x1: 9, y1: 3, x2: 9, y2: 21 })
 );
