@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/breja/hyperapp-feather.git"
+    "url": "git+https://github.com/TVWIT/hyperapp-feather.git"
   },
   "keywords": [
     "hyperapp",
@@ -33,7 +33,7 @@
   "author": "breja",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/breja/hyperapp-feather/issues"
+    "url": "https://github.com/TVWIT/hyperapp-feather/issues"
   },
-  "homepage": "https://github.com/breja/hyperapp-feather#readme"
+  "homepage": "https://github.com/TVWIT/hyperapp-feather#readme"
 }
