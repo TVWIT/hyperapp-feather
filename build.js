@@ -86,7 +86,6 @@ ${typingsNames(names)}`
   await fs.writeFile(typingsFile, typingsSource)
 
   console.log('DONE!')
-  console.log('if you enjoyed this process, consider running it again for teh luls')
 }
 
 main().catch(console.error)

@@ -1,3 +1,5 @@
+**this was forked to fix the build process so it produces es2015 syntax. this package will be obsolete in the future b/c hyperapp will be replaced with preact**
+
 # hyperapp feather icons
 
 **simply beautiful feather SVG icons as hyperapp components**
