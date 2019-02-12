@@ -19,7 +19,8 @@
   "scripts": {
     "build": "mkdir -p dist/icons && rm -rf dist/* && node build.js && npm run dist && cp main.js dist/main.js",
     "dist": "babel icons --out-dir dist/icons --source-maps",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "postversion": "git push && git push --tags && npm publish"
   },
   "repository": {
     "type": "git",
